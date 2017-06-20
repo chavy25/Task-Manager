@@ -380,6 +380,13 @@ namespace TaskManager
             this.cambiarAfinidad(6);
         }
 
+        private void btnAfinidad_Click(object sender, EventArgs e)
+        {
+             AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString());
+             afinidad.Show();
+        }
+
+
 
     }
 }

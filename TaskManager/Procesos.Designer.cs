@@ -45,12 +45,12 @@
             this.btnFinalizarArbol = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPrioridad = new System.Windows.Forms.ToolStripMenuItem();
             this.btnidle = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnBelow = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNormal = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAbove = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHigh = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRealTime = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAfinidad = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnBelow = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAbove = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProcesos)).BeginInit();
             this.clickDerechoMenu.SuspendLayout();
@@ -122,7 +122,7 @@
             // refrescarToolStripMenuItem
             // 
             this.refrescarToolStripMenuItem.Name = "refrescarToolStripMenuItem";
-            this.refrescarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refrescarToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.refrescarToolStripMenuItem.Text = "Refrescar";
             this.refrescarToolStripMenuItem.Click += new System.EventHandler(this.refrescarToolStripMenuItem_Click);
             // 
@@ -148,7 +148,7 @@
             this.btnAfinidad});
             this.clickDerechoMenu.Name = "contextMenuStrip1";
             this.clickDerechoMenu.ShowImageMargin = false;
-            this.clickDerechoMenu.Size = new System.Drawing.Size(187, 92);
+            this.clickDerechoMenu.Size = new System.Drawing.Size(187, 114);
             // 
             // btnFinalizar
             // 
@@ -184,12 +184,26 @@
             this.btnidle.Text = "Idle";
             this.btnidle.Click += new System.EventHandler(this.btnidle_Click);
             // 
+            // btnBelow
+            // 
+            this.btnBelow.Name = "btnBelow";
+            this.btnBelow.Size = new System.Drawing.Size(152, 22);
+            this.btnBelow.Text = "Below Normal";
+            this.btnBelow.Click += new System.EventHandler(this.btnBelow_Click);
+            // 
             // btnNormal
             // 
             this.btnNormal.Name = "btnNormal";
             this.btnNormal.Size = new System.Drawing.Size(152, 22);
             this.btnNormal.Text = "Normal";
             this.btnNormal.Click += new System.EventHandler(this.btnNormal_Click);
+            // 
+            // btnAbove
+            // 
+            this.btnAbove.Name = "btnAbove";
+            this.btnAbove.Size = new System.Drawing.Size(152, 22);
+            this.btnAbove.Text = "Above Normal";
+            this.btnAbove.Click += new System.EventHandler(this.btnAbove_Click);
             // 
             // btnHigh
             // 
@@ -210,20 +224,7 @@
             this.btnAfinidad.Name = "btnAfinidad";
             this.btnAfinidad.Size = new System.Drawing.Size(186, 22);
             this.btnAfinidad.Text = "Establecer Afinidad";
-            // 
-            // btnBelow
-            // 
-            this.btnBelow.Name = "btnBelow";
-            this.btnBelow.Size = new System.Drawing.Size(152, 22);
-            this.btnBelow.Text = "Below Normal";
-            this.btnBelow.Click += new System.EventHandler(this.btnBelow_Click);
-            // 
-            // btnAbove
-            // 
-            this.btnAbove.Name = "btnAbove";
-            this.btnAbove.Size = new System.Drawing.Size(152, 22);
-            this.btnAbove.Text = "Above Normal";
-            this.btnAbove.Click += new System.EventHandler(this.btnAbove_Click);
+            this.btnAfinidad.Click += new System.EventHandler(this.btnAfinidad_Click);
             // 
             // formProcesos
             // 
