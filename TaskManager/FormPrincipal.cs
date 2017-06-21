@@ -26,7 +26,7 @@ namespace TaskManager
         {
             formProcesos childForm = new formProcesos();
             childForm.MdiParent = this;
-            childForm.Text = "Ventana " + childFormNumber++;
+            childForm.Text = "Ventana Procesos " + childFormNumber++;
             childForm.Show();
         }
 

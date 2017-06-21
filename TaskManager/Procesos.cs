@@ -249,11 +249,11 @@ namespace TaskManager
         //Finaliza el arbol de procesos
         private void btnFinalizarArbol_Click(object sender, EventArgs e)
         {
-            this.KillArbolProcesos((int)dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value);
+            this.cerrarArbolProcesos((int)dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value);
         }
 
         //Cierra el arbol de procesos
-        private void KillArbolProcesos(int ID)
+        private void cerrarArbolProcesos(int ID)
         {
             try
             {
@@ -263,7 +263,7 @@ namespace TaskManager
 
                 foreach (ManagementObject obj in procesos)
                 {
-                    KillArbolProcesos(Convert.ToInt32(obj["ProcessID"]));
+                    cerrarArbolProcesos(Convert.ToInt32(obj["ProcessID"]));
                 }
                 try
                 {
@@ -382,7 +382,7 @@ namespace TaskManager
 
         private void btnAfinidad_Click(object sender, EventArgs e)
         {
-             AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString());
+            AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString());
              afinidad.Show();
         }
 
