@@ -32,12 +32,12 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblCantidadProcesadores = new System.Windows.Forms.Label();
             this.cBox3 = new System.Windows.Forms.CheckBox();
             this.cBox2 = new System.Windows.Forms.CheckBox();
             this.cBox1 = new System.Windows.Forms.CheckBox();
             this.cBox0 = new System.Windows.Forms.CheckBox();
             this.cBoxTodos = new System.Windows.Forms.CheckBox();
-            this.lblCantidadProcesadores = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,8 +81,17 @@
             this.panel1.Controls.Add(this.cBoxTodos);
             this.panel1.Location = new System.Drawing.Point(27, 38);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(179, 171);
+            this.panel1.Size = new System.Drawing.Size(274, 171);
             this.panel1.TabIndex = 3;
+            // 
+            // lblCantidadProcesadores
+            // 
+            this.lblCantidadProcesadores.AutoSize = true;
+            this.lblCantidadProcesadores.Location = new System.Drawing.Point(14, 11);
+            this.lblCantidadProcesadores.Name = "lblCantidadProcesadores";
+            this.lblCantidadProcesadores.Size = new System.Drawing.Size(35, 13);
+            this.lblCantidadProcesadores.TabIndex = 5;
+            this.lblCantidadProcesadores.Text = "label1";
             // 
             // cBox3
             // 
@@ -95,6 +104,7 @@
             this.cBox3.TabIndex = 4;
             this.cBox3.Text = "CPU 3";
             this.cBox3.UseVisualStyleBackColor = true;
+            this.cBox3.CheckedChanged += new System.EventHandler(this.cBox3_CheckedChanged);
             // 
             // cBox2
             // 
@@ -107,6 +117,7 @@
             this.cBox2.TabIndex = 3;
             this.cBox2.Text = "CPU 2";
             this.cBox2.UseVisualStyleBackColor = true;
+            this.cBox2.CheckedChanged += new System.EventHandler(this.cBox2_CheckedChanged);
             // 
             // cBox1
             // 
@@ -119,6 +130,7 @@
             this.cBox1.TabIndex = 2;
             this.cBox1.Text = "CPU 1";
             this.cBox1.UseVisualStyleBackColor = true;
+            this.cBox1.CheckedChanged += new System.EventHandler(this.cBox1_CheckedChanged);
             // 
             // cBox0
             // 
@@ -131,6 +143,7 @@
             this.cBox0.TabIndex = 1;
             this.cBox0.Text = "CPU 0";
             this.cBox0.UseVisualStyleBackColor = true;
+            this.cBox0.CheckedChanged += new System.EventHandler(this.cBox0_CheckedChanged);
             // 
             // cBoxTodos
             // 
@@ -144,15 +157,6 @@
             this.cBoxTodos.Text = "Todos los Nucleos";
             this.cBoxTodos.UseVisualStyleBackColor = true;
             this.cBoxTodos.CheckedChanged += new System.EventHandler(this.cBoxTodos_CheckedChanged);
-            // 
-            // lblCantidadProcesadores
-            // 
-            this.lblCantidadProcesadores.AutoSize = true;
-            this.lblCantidadProcesadores.Location = new System.Drawing.Point(14, 11);
-            this.lblCantidadProcesadores.Name = "lblCantidadProcesadores";
-            this.lblCantidadProcesadores.Size = new System.Drawing.Size(35, 13);
-            this.lblCantidadProcesadores.TabIndex = 5;
-            this.lblCantidadProcesadores.Text = "label1";
             // 
             // AfinidadForm
             // 

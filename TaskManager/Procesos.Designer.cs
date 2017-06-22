@@ -180,43 +180,43 @@
             // btnidle
             // 
             this.btnidle.Name = "btnidle";
-            this.btnidle.Size = new System.Drawing.Size(152, 22);
-            this.btnidle.Text = "Idle";
+            this.btnidle.Size = new System.Drawing.Size(206, 22);
+            this.btnidle.Text = "Baja";
             this.btnidle.Click += new System.EventHandler(this.btnidle_Click);
             // 
             // btnBelow
             // 
             this.btnBelow.Name = "btnBelow";
-            this.btnBelow.Size = new System.Drawing.Size(152, 22);
-            this.btnBelow.Text = "Below Normal";
+            this.btnBelow.Size = new System.Drawing.Size(206, 22);
+            this.btnBelow.Text = "Por Debajo de lo Normal";
             this.btnBelow.Click += new System.EventHandler(this.btnBelow_Click);
             // 
             // btnNormal
             // 
             this.btnNormal.Name = "btnNormal";
-            this.btnNormal.Size = new System.Drawing.Size(152, 22);
+            this.btnNormal.Size = new System.Drawing.Size(206, 22);
             this.btnNormal.Text = "Normal";
             this.btnNormal.Click += new System.EventHandler(this.btnNormal_Click);
             // 
             // btnAbove
             // 
             this.btnAbove.Name = "btnAbove";
-            this.btnAbove.Size = new System.Drawing.Size(152, 22);
-            this.btnAbove.Text = "Above Normal";
+            this.btnAbove.Size = new System.Drawing.Size(206, 22);
+            this.btnAbove.Text = "Por Encima de lo Normal";
             this.btnAbove.Click += new System.EventHandler(this.btnAbove_Click);
             // 
             // btnHigh
             // 
             this.btnHigh.Name = "btnHigh";
-            this.btnHigh.Size = new System.Drawing.Size(152, 22);
-            this.btnHigh.Text = "High";
+            this.btnHigh.Size = new System.Drawing.Size(206, 22);
+            this.btnHigh.Text = "Alta";
             this.btnHigh.Click += new System.EventHandler(this.btnHigh_Click);
             // 
             // btnRealTime
             // 
             this.btnRealTime.Name = "btnRealTime";
-            this.btnRealTime.Size = new System.Drawing.Size(152, 22);
-            this.btnRealTime.Text = "Real Time";
+            this.btnRealTime.Size = new System.Drawing.Size(206, 22);
+            this.btnRealTime.Text = "Tiempo Real";
             this.btnRealTime.Click += new System.EventHandler(this.btnRealTime_Click);
             // 
             // btnAfinidad

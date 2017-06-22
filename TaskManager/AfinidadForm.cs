@@ -13,15 +13,69 @@ namespace TaskManager
 {
     public partial class AfinidadForm : Form
     {
-        String nombreProceso = string.Empty;
-        Process[] listaProcesosActual;
-        ProcessThreadCollection hilos;
-        public AfinidadForm(string nombreProceso)
+        Process procesoActual = null;
+        public AfinidadForm(string nombreProceso, int procesoID)
         {
+            procesoActual = Process.GetProcessById(procesoID);
             InitializeComponent();
-            this.nombreProceso = nombreProceso;
-            lblCantidadProcesadores.Text = cargarAfinidad(nombreProceso);//"Cantidad de nucleos disponibles: "+Environment.ProcessorCount.ToString();
-            lblAfinidad.Text = "Qué procesadores puede ejecutar "+nombreProceso+"?";
+            lblCantidadProcesadores.Text = "Cantidad de nucleos disponibles: " + Environment.ProcessorCount.ToString();
+            lblAfinidad.Text = "Qué procesadores puede ejecutar " + nombreProceso + "...?";
+
+            switch (cargarAfinidad(procesoID))
+            {
+                case "1":
+                    this.cBoxTodos.Checked = false;
+                    this.cBox0.Checked = true;
+                    this.cBox1.Checked = false;
+                    this.cBox2.Checked = false;
+                    this.cBox3.Checked = false;
+                    break;
+
+                case "2":
+                    this.cBoxTodos.Checked = false;
+                    this.cBox0.Checked = false;
+                    this.cBox1.Checked = true;
+                    this.cBox2.Checked = false;
+                    this.cBox3.Checked = false;
+                    break;
+
+                case "3":
+                    this.cBoxTodos.Checked = false;
+                    this.cBox0.Checked = false;
+                    this.cBox1.Checked = false;
+                    this.cBox2.Checked = true;
+                    this.cBox3.Checked = false;
+                    break;
+
+                case "4":
+                    this.cBoxTodos.Checked = false;
+                    this.cBox0.Checked = false;
+                    this.cBox1.Checked = false;
+                    this.cBox2.Checked = false;
+                    this.cBox3.Checked = true;
+                    break;
+
+                case "7":
+                    this.cBoxTodos.Checked = false;
+                    this.cBox0.Checked = true;
+                    this.cBox1.Checked = true;
+                    this.cBox2.Checked = true;
+                    this.cBox3.Checked = false;
+                    break;
+
+                case "9":
+                    this.cBoxTodos.Checked = false;
+                    this.cBox0.Checked = true;
+                    this.cBox1.Checked = false;
+                    this.cBox2.Checked = false;
+                    this.cBox3.Checked = true;
+                    break;
+
+                case "15":
+                    this.cBoxTodos.Checked = true;
+                    break;
+
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -32,70 +86,75 @@ namespace TaskManager
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (cBoxTodos.Checked)
+                actualizarAfinidad(15);
                 this.Close();
 
-           if (cBox0.Checked) 
-                actualizarAfinidad(0);
-                this.Close();
-
-            if (cBox1.Checked) 
+            if (cBox0.Checked)
                 actualizarAfinidad(1);
-                this.Close();
-            
-            if (cBox2.Checked) 
+            this.Close();
+
+            if (cBox1.Checked)
                 actualizarAfinidad(2);
-                this.Close();
-            
-            if (cBox3.Checked) 
+            this.Close();
+
+            if (cBox2.Checked)
                 actualizarAfinidad(3);
-                this.Close();
-            
+            this.Close();
+
+            if (cBox3.Checked)
+                actualizarAfinidad(4);
+            this.Close();
+
+            if (cBox0.Checked && cBox1.Checked && cBox2.Checked)
+                actualizarAfinidad(7);
+            this.Close();
+
+            if (cBox0.Checked && cBox3.Checked)
+                actualizarAfinidad(9);
+            this.Close();
         }
 
 
-        public string cargarAfinidad(String nombre){
+        public string cargarAfinidad(int id)
+        {
 
-            if (nombreProceso != string.Empty)
+            try
             {
-                listaProcesosActual = Process.GetProcessesByName(nombreProceso);
-
-                if (listaProcesosActual.Length > 0)
+                if (procesoActual != null && !procesoActual.HasExited)
                 {
-                    try
-                    {
-                        return listaProcesosActual[0].ProcessorAffinity.ToString();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    return procesoActual.ProcessorAffinity.ToString();
                 }
+                else
+                {
+                    MessageBox.Show("Proceso Terminado", "El proceso selccionado ya ha finalizado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+
             }
-            return null;
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
 
-        private void actualizarAfinidad(int caso) {
-           
-            
+        private void actualizarAfinidad(int nucleo)
+        {
 
-            if (nombreProceso != string.Empty)
-            {                
-                listaProcesosActual = Process.GetProcessesByName(nombreProceso);
-
-                if (listaProcesosActual.Length > 0)
-                {
-                    hilos = listaProcesosActual[0].Threads;
-                    hilos[0].ProcessorAffinity = (IntPtr)caso;
-
-                }else { 
-                    
-                }
-            }else
+            try
             {
-               
+                if (procesoActual != null && !procesoActual.HasExited)
+                    procesoActual.ProcessorAffinity = (IntPtr)nucleo;
+                    this.cBoxTodos.Checked = false;
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Proceso Terminado", e.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
         }
 
         private void cBoxTodos_CheckedChanged(object sender, EventArgs e)
@@ -107,15 +166,39 @@ namespace TaskManager
                 this.cBox2.Checked = true;
                 this.cBox3.Checked = true;
                 this.cBoxTodos.Checked = true;
+                btnAceptar.Enabled = true;
             }
-            else {
+            else 
+            {
                 this.cBox0.Checked = false;
                 this.cBox1.Checked = false;
                 this.cBox2.Checked = false;
                 this.cBox3.Checked = false;
                 this.cBoxTodos.Checked = false;
+                btnAceptar.Enabled = false;
             }
             
+
+        }
+
+        private void cBox0_CheckedChanged(object sender, EventArgs e)
+        {
+            btnAceptar.Enabled = true;
+        }
+
+        private void cBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            btnAceptar.Enabled = true;
+        }
+
+        private void cBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            btnAceptar.Enabled = true;
+        }
+
+        private void cBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            btnAceptar.Enabled = true;
         }
     }
 }

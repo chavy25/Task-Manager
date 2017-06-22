@@ -66,13 +66,13 @@ namespace TaskManager
                         procesosClass.Nombre = listaProc[i].ProcessName.ToString();
                         procesosClass.Desc = listaProc[i].MainModule.FileVersionInfo.FileDescription.ToString();
                         procesosClass.Cpu = getPorcentajeCPU(listaProc[i].ProcessName.ToString());
-                        procesosClass.Memoria = memoriaProceso((long)listaProc[i].MainModule.ModuleMemorySize);
+                        procesosClass.Memoria = memoriaProceso((long)listaProc[i].PeakWorkingSet64);
                         procesosClass.Usuario = getNombreUsuarioProceso(listaProc[i].Id.ToString());
                         procesosClass.Prioridad = listaProc[i].PriorityClass.ToString();
 
 
                     }
-                    else
+                    else 
                     {
                         try
                         {
@@ -81,7 +81,7 @@ namespace TaskManager
                             procesosClass.Nombre = listaProc[i].ProcessName.ToString();
                             procesosClass.Desc = listaProc[i].MainModule.FileVersionInfo.FileDescription.ToString();
                             procesosClass.Cpu = getPorcentajeCPU(listaProc[i].ProcessName.ToString());
-                            procesosClass.Memoria = memoriaProceso((long)listaProc[i].MainModule.ModuleMemorySize);
+                            procesosClass.Memoria = memoriaProceso((long)listaProc[i].PeakWorkingSet64);
                             procesosClass.Usuario = getNombreUsuarioProceso(listaProc[i].Id.ToString());
                             procesosClass.Prioridad = listaProc[i].PriorityClass.ToString();
 
@@ -94,19 +94,35 @@ namespace TaskManager
 
 
                     }
-                    tablaDatos.Rows.Add(procesosClass.Id, procesosClass.Nombre, procesosClass.Desc, procesosClass.Cpu, procesosClass.Memoria, procesosClass.Usuario, procesosClass.Prioridad);
+                    try
+                    {
+                        tablaDatos.Rows.Add(procesosClass.Id, procesosClass.Nombre, procesosClass.Desc, procesosClass.Cpu, procesosClass.Memoria, procesosClass.Usuario, procesosClass.Prioridad);
 
+                    }
+                    catch (Exception)
+                    {
+                        
+                        throw;
+                    }
                 }
 
-                tablaDatos.AcceptChanges();
-                source.DataSource = tablaDatos;
-
-                int scroll = dgvProcesos.FirstDisplayedScrollingRowIndex;
-                dgvProcesos.DataSource = source;
-
-                if (scroll != -1)
+                try
                 {
-                    dgvProcesos.FirstDisplayedScrollingRowIndex = scroll;
+                    tablaDatos.AcceptChanges();
+                    source.DataSource = tablaDatos;
+
+                    int scroll = dgvProcesos.FirstDisplayedScrollingRowIndex;
+                    dgvProcesos.DataSource = source;
+
+                    if (scroll != -1)
+                    {
+                        dgvProcesos.FirstDisplayedScrollingRowIndex = scroll;
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    throw;
                 }
 
 
@@ -202,7 +218,7 @@ namespace TaskManager
                 listaProc = Process.GetProcesses();
                 foreach (Process p in listaProc)
                 {
-                    memAux += p.PrivateMemorySize64;
+                    memAux += p.PeakWorkingSet64;
                 }
                 return memAux / listaProc.Length;
             }
@@ -287,7 +303,7 @@ namespace TaskManager
 
 
         //Metodo para ajustar la afinidad del proceso
-        private void cambiarAfinidad(int afinidad)
+        private void cambiarPrioridad(int prioridad)
         {
 
             try
@@ -298,7 +314,7 @@ namespace TaskManager
                     if (!proc.HasExited)
                     {
 
-                        switch (afinidad)
+                        switch (prioridad)
                         {
 
                             case 1:
@@ -353,36 +369,36 @@ namespace TaskManager
         
         private void btnidle_Click(object sender, EventArgs e)
         {
-            this.cambiarAfinidad(1);
+            this.cambiarPrioridad(1);
         }
         private void btnBelow_Click(object sender, EventArgs e)
         {
-            this.cambiarAfinidad(2);
+            this.cambiarPrioridad(2);
         }
 
         private void btnNormal_Click(object sender, EventArgs e)
         {
-            this.cambiarAfinidad(3);
+            this.cambiarPrioridad(3);
         }
 
         private void btnAbove_Click(object sender, EventArgs e)
         {
-            this.cambiarAfinidad(4);
+            this.cambiarPrioridad(4);
         }
 
         private void btnHigh_Click(object sender, EventArgs e)
         {
-            this.cambiarAfinidad(5);
+            this.cambiarPrioridad(5);
         }
 
         private void btnRealTime_Click(object sender, EventArgs e)
         {
-            this.cambiarAfinidad(6);
+            this.cambiarPrioridad(6);
         }
 
         private void btnAfinidad_Click(object sender, EventArgs e)
         {
-            AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString());
+            AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString(), int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString()));
              afinidad.Show();
         }
 
