@@ -23,7 +23,7 @@ namespace TaskManager
         {
             procesoActual = Process.GetProcesses().FirstOrDefault(x => x.Id == procesoID);//asigna a la variable procesoAEjecutar el proceso con el id del proceso seleccionado 
             InitializeComponent();
-            lblCantidadProcesadores.Text = "Cantidad de nucleos disponibles: " + Environment.ProcessorCount.ToString();
+            lblCantidadProcesadores.Text = "Cantidad de nucleos disponibles: " + Environment.ProcessorCount.ToString();//Asigna al label el numero de nucleos o procesadores disponibles
             lblAfinidad.Text = "Qué procesadores puede ejecutar " + nombreProceso + "...?";
 
             switch (cargarAfinidad(procesoID))
@@ -103,36 +103,36 @@ namespace TaskManager
         private void btnAceptar_Click(object sender, EventArgs e)
         {
 
-
+            //Procesador 0
             if (cBox0.Checked && !cBox1.Checked && !cBox2.Checked && !cBox3.Checked)
                 actualizarAfinidad(1);
-            
 
+            //Procesador 1
             if (cBox1.Checked && !cBox0.Checked && !cBox2.Checked && !cBox3.Checked)
                 actualizarAfinidad(2);
-           
 
+            //Procesador 2
             if (cBox2.Checked && !cBox1.Checked && !cBox0.Checked && !cBox3.Checked)
                 actualizarAfinidad(3);
-           
+            //Procesador 3
             if (cBox3.Checked && !cBox1.Checked && !cBox2.Checked && !cBox0.Checked)
                 actualizarAfinidad(4);
-            
 
+            //Procesador 0 y 1
             if (cBox0.Checked && cBox1.Checked && cBox2.Checked && !cBox3.Checked)
                 actualizarAfinidad(7);
-            
+            //Procesador 0 y 2
             if (cBox0.Checked && cBox2.Checked && !cBox1.Checked && !cBox3.Checked)
                 actualizarAfinidad(5);
-           
 
+            //Procesador 0 y 3
             if (cBox0.Checked && cBox3.Checked && !cBox1.Checked && !cBox2.Checked)
                 actualizarAfinidad(9);
-          
+            //Todos los procesadores
             if (cBoxTodos.Checked)
                 actualizarAfinidad(15);
             
-            this.Close();
+            this.Close();//cierra el form al terminar
 
         }
 
@@ -141,16 +141,18 @@ namespace TaskManager
         {
             try
             {
-                //verifica que el proceso se  haya cargado correctamente en la variable local y que no halla terminado
+                //verifica que el proceso se  haya cargado correctamente en la variable local y que este no halla terminado
                 if (procesoActual != null && !procesoActual.HasExited)
                     return procesoActual.ProcessorAffinity.ToString();//devuelve la afinidad del proceso en un numero decimal
                 //Para averiguar el procesador se toma en cuenta la formula 2¨n -1, n = la cantidad de procesadors habilitados
 
-                MessageBox.Show("El proceso selccionado ya ha finalizado", "Proceso Terminado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Notifica al usuario que el proceso ya ha finalizado
+                MessageBox.Show("El proceso seleccionado ya ha finalizado", "Proceso Terminado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
             catch (Exception ex)
             {
+                //Notifica al usuario de algun error al cambiar la afinidad de un proceso
                 MessageBox.Show(ex.Message.ToString(),"Error General", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
 
@@ -170,6 +172,7 @@ namespace TaskManager
             }
             catch (Exception ex)
             {
+                //Notifica al usuario que el proceso ya ha finalizado
                 MessageBox.Show(ex.Message.ToString(), "Proceso Terminado", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
@@ -204,24 +207,28 @@ namespace TaskManager
         //Evento del checkbox del primer procesador - habilita el boton de aceptar
         private void cBox0_CheckedChanged(object sender, EventArgs e)
         {
+            //Habilita el boton aceptar
             btnAceptar.Enabled = true;
         }
 
         //Evento del checkbox del segundo procesador - habilita el boton de aceptar
         private void cBox1_CheckedChanged(object sender, EventArgs e)
         {
+            //Habilita el boton aceptar
             btnAceptar.Enabled = true;
         }
 
         //Evento del checkbox del tercer procesador - habilita el boton de aceptar
         private void cBox2_CheckedChanged(object sender, EventArgs e)
         {
+            //Habilita el boton aceptar
             btnAceptar.Enabled = true;
         }
 
         //Evento del checkbox del cuarto procesador - habilita el boton de aceptar
         private void cBox3_CheckedChanged(object sender, EventArgs e)
         {
+            //Habilita el boton aceptar
             btnAceptar.Enabled = true;
         }
     }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBuscar));
             this.btnCerrar = new System.Windows.Forms.Button();
             this.txtIDProceso = new System.Windows.Forms.TextBox();
             this.hlp = new System.Windows.Forms.HelpProvider();
@@ -39,11 +40,11 @@
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(178, 182);
+            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
+            this.btnCerrar.Location = new System.Drawing.Point(221, 182);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(72, 23);
+            this.btnCerrar.Size = new System.Drawing.Size(29, 23);
             this.btnCerrar.TabIndex = 3;
-            this.btnCerrar.Text = "Regresar";
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
@@ -80,7 +81,7 @@
             // 
             this.btnEjecutar.Location = new System.Drawing.Point(10, 95);
             this.btnEjecutar.Name = "btnEjecutar";
-            this.btnEjecutar.Size = new System.Drawing.Size(108, 54);
+            this.btnEjecutar.Size = new System.Drawing.Size(115, 45);
             this.btnEjecutar.TabIndex = 5;
             this.btnEjecutar.Text = "Ejecutar Programa";
             this.btnEjecutar.UseVisualStyleBackColor = true;
