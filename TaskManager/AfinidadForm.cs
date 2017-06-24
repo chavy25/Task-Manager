@@ -103,36 +103,35 @@ namespace TaskManager
         private void btnAceptar_Click(object sender, EventArgs e)
         {
 
+
+            if (cBox0.Checked && !cBox1.Checked && !cBox2.Checked && !cBox3.Checked)
+                actualizarAfinidad(1);
+            
+
+            if (cBox1.Checked && !cBox0.Checked && !cBox2.Checked && !cBox3.Checked)
+                actualizarAfinidad(2);
+           
+
+            if (cBox2.Checked && !cBox1.Checked && !cBox0.Checked && !cBox3.Checked)
+                actualizarAfinidad(3);
+           
+            if (cBox3.Checked && !cBox1.Checked && !cBox2.Checked && !cBox0.Checked)
+                actualizarAfinidad(4);
+            
+
+            if (cBox0.Checked && cBox1.Checked && cBox2.Checked && !cBox3.Checked)
+                actualizarAfinidad(7);
+            
+            if (cBox0.Checked && cBox2.Checked && !cBox1.Checked && !cBox3.Checked)
+                actualizarAfinidad(5);
+           
+
+            if (cBox0.Checked && cBox3.Checked && !cBox1.Checked && !cBox2.Checked)
+                actualizarAfinidad(9);
+          
             if (cBoxTodos.Checked)
                 actualizarAfinidad(15);
-            this.Close();
-
-            if (cBox0.Checked && cBox1.Checked && cBox2.Checked)
-                actualizarAfinidad(7);
-            this.Close();
-
-            if (cBox0.Checked && cBox2.Checked)
-                actualizarAfinidad(5);
-            this.Close();
             
-            if (cBox0.Checked && cBox3.Checked)
-                actualizarAfinidad(9);
-            this.Close();
-
-            if (cBox0.Checked)
-                actualizarAfinidad(1);
-            this.Close();
-
-            if (cBox1.Checked)
-                actualizarAfinidad(2);
-            this.Close();
-
-            if (cBox2.Checked)
-                actualizarAfinidad(3);
-            this.Close();
-
-            if (cBox3.Checked)
-                actualizarAfinidad(4);
             this.Close();
 
         }
@@ -147,12 +146,12 @@ namespace TaskManager
                     return procesoActual.ProcessorAffinity.ToString();//devuelve la afinidad del proceso en un numero decimal
                 //Para averiguar el procesador se toma en cuenta la formula 2¨n -1, n = la cantidad de procesadors habilitados
 
-                MessageBox.Show("Proceso Terminado", "El proceso selccionado ya ha finalizado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El proceso selccionado ya ha finalizado", "Proceso Terminado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error General", e.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString(),"Error General", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
 
             }
@@ -169,9 +168,9 @@ namespace TaskManager
                     procesoActual.ProcessorAffinity = (IntPtr)nucleo;//asigna la afinidad al proceso de acuerdo al procesador(es) seleccionados
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show("Proceso Terminado", e.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message.ToString(), "Proceso Terminado", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
 

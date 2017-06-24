@@ -13,6 +13,7 @@ using System.Management;
 
 namespace TaskManager
 {
+    //Clase del formProcesos la que tiene las estadisticas y la informacion de los procesos en ejecucion
     public partial class formProcesos : Form
     {
         public Process[] listaProc;
@@ -20,19 +21,19 @@ namespace TaskManager
         ProcesosClass procesosClass;
 
 
-
-
+        //Constructor del Form, donde inicializa la carga de los procesos a la tabla
         public formProcesos()
         {
             InitializeComponent();
             refrescarToolStripMenuItem_Click(null, null);//accesa al event handler e inicia el grid view
             Timer cronometro = new Timer();
-            cronometro.Interval = 1200000;//dos minutos de refrescamiento
+            cronometro.Interval = 1200000;//dos minutos de refrescamiento a la tabla de procesos
             cronometro.Tick += refrescarToolStripMenuItem_Click; //refresca el grid view
             cronometro.Start();
 
         }
 
+        //Metodo que obtiene por medio de la clase Process de Diagnostic, todos los procesos actuales ejecutandose
         public void cargarProcesos()
         {
 
@@ -46,8 +47,8 @@ namespace TaskManager
                 lblMemoria.Text = memoriaProceso(memoriaTotal());
 
 
-                var tablaDatos = new DataTable("Ejecutandose");
-
+                var tablaDatos = new DataTable("Ejecutandose");//Nueva tabla con los siguientes encabezados
+                //Encabezados de cada columna de la tabla
                 tablaDatos.Columns.Add("ID");
                 tablaDatos.Columns.Add("Nombre");
                 tablaDatos.Columns.Add("Descripcion");
@@ -58,8 +59,9 @@ namespace TaskManager
 
                 for (int i = 0; i < listaProc.Length; i++)
                 {
-                    procesosClass = new ProcesosClass();
+                    procesosClass = new ProcesosClass();//se cargan todos los procesos en este array de procesos
 
+                    //determina si el proceso pertenece al usuario y si no se ha terminado
                     if (getNombreUsuarioProceso(listaProc[i].Id.ToString()).Equals(Environment.UserName) && listaProc[i].HasExited != false)
                     {
                         procesosClass.Id = listaProc[i].Id.ToString();
@@ -72,6 +74,7 @@ namespace TaskManager
 
 
                     }
+                        //Obtiene los procesos ejecutandose de otro usuario con mas privilegios
                     else
                     {
                         try
@@ -88,6 +91,8 @@ namespace TaskManager
                         }
                         catch (Win32Exception w)
                         {
+                            //este catch atrapa los procesos que no son accesibles ya que son necesarios por el sistem
+                            //estos procesos no son visibles
                             w.Message.ToString();
 
                         }
@@ -95,6 +100,7 @@ namespace TaskManager
                     }
                     try
                     {
+                        //agrega una nueva fila con la informacion de un proceso a la tabla de datos de procesos
                         tablaDatos.Rows.Add(procesosClass.Id, procesosClass.Nombre, procesosClass.Desc, procesosClass.Cpu, procesosClass.Memoria, procesosClass.Usuario, procesosClass.Prioridad);
 
                     }
@@ -106,11 +112,11 @@ namespace TaskManager
 
                 try
                 {
-                    tablaDatos.AcceptChanges();
-                    source.DataSource = tablaDatos;
+                    tablaDatos.AcceptChanges();//guarda la tabla en memoria secundario
+                    source.DataSource = tablaDatos;// carga los datos de la tabla a una variable entendible por el gridview
 
                     int scroll = dgvProcesos.FirstDisplayedScrollingRowIndex;
-                    dgvProcesos.DataSource = source;
+                    dgvProcesos.DataSource = source; //gridview carga todos los datos de la tabla
 
                     if (scroll != -1)
                     {
@@ -132,7 +138,7 @@ namespace TaskManager
 
         }
 
-        //Obtiene el nombre de usuario
+        //Funcion que obtiene el nombre de usuario
         public string getNombreUsuarioProceso(string procesoID)
         {
 
@@ -161,10 +167,12 @@ namespace TaskManager
             return "Sin Usuario";
         }
 
+        //Funcion que obtiene el porcentaje del CPU utilizado
         public string getPorcentajeCPU(string nomProceso)
         {
-            var contadorCPU = new PerformanceCounter("Process", "% Processor Time", nomProceso, true);
+            var contadorCPU = new PerformanceCounter("Process", "% Processor Time", nomProceso, true);// metodo performance counter que obtiene el porcentaje del procesor utilizado por un proceso especifico
             contadorCPU.NextValue();
+            //se evalua el resultado de acuerdo a diferentes tienpos de ejecucion del CPU
             System.Threading.Thread.Sleep(10);
             int aux = (int)contadorCPU.NextValue();
             System.Threading.Thread.Sleep(10);
@@ -284,6 +292,7 @@ namespace TaskManager
         {
             try
             {
+                //Por medio de esta sintaxis lambda se obtiene el proceso por medio del ID
                 Process.GetProcesses().FirstOrDefault(x => x.Id == int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString())).Kill();
                 if (MessageBox.Show("Desea actualizar la vista de procesos?", "Proceso Cerrado Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     cargarProcesos();
@@ -307,11 +316,11 @@ namespace TaskManager
         //Cierra el arbol de procesos
         private void cerrarArbolProcesos(string nombreProceso)
         {
-            Process[] arbol = Process.GetProcessesByName(nombreProceso);
+            Process[] arbol = Process.GetProcessesByName(nombreProceso);//asgina a el arreglo de procesos, todos los procesos con el mismo nombre
 
             try
             {
-                foreach (Process pro in arbol)
+                foreach (Process pro in arbol)//cierra todos los procesos dentro de este arreglo
                 {
                     try
                     {
@@ -339,12 +348,13 @@ namespace TaskManager
 
             try
             {
+                //determina que la fila seleccionada no se encuentre vacia
                 if (!dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[2].Value.ToString().Equals(String.Empty))
                 {
-                    Process proc = Process.GetProcessById(int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString()));
+                    Process proc = Process.GetProcessById(int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString()));//obtiene el proceso por medio del ID de la fila seleccionada
                     if (!proc.HasExited)
                     {
-
+                        //selecciona la prioridad del proceso
                         switch (prioridad)
                         {
 
@@ -454,7 +464,8 @@ namespace TaskManager
             AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString(), int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString()));
             afinidad.Show();
         }
-
+        
+        //Funcion para traducir la prioridad de un proceso de Ingles a Español
         private string traducirPrioridadProceso(string prioridad)
         {
             switch (prioridad)
@@ -464,7 +475,7 @@ namespace TaskManager
                     return "Baja";
                     
                 case "BelowNormal":
-                    return "Debajo de lo Normal";
+                    return "Por Debajo de lo Normal";
                    
                 case "Normal":
                     return "Normal";
