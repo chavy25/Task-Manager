@@ -66,13 +66,13 @@ namespace TaskManager
                         procesosClass.Nombre = listaProc[i].ProcessName.ToString();
                         procesosClass.Desc = listaProc[i].MainModule.FileVersionInfo.FileDescription.ToString();
                         procesosClass.Cpu = getPorcentajeCPU(listaProc[i].ProcessName.ToString());
-                        procesosClass.Memoria = memoriaProceso((long)listaProc[i].PeakWorkingSet64);
+                        procesosClass.Memoria = memoriaProceso((long)listaProc[i].WorkingSet64);
                         procesosClass.Usuario = getNombreUsuarioProceso(listaProc[i].Id.ToString());
-                        procesosClass.Prioridad = listaProc[i].PriorityClass.ToString();
+                        procesosClass.Prioridad = traducirPrioridadProceso(listaProc[i].PriorityClass.ToString());
 
 
                     }
-                    else 
+                    else
                     {
                         try
                         {
@@ -81,9 +81,9 @@ namespace TaskManager
                             procesosClass.Nombre = listaProc[i].ProcessName.ToString();
                             procesosClass.Desc = listaProc[i].MainModule.FileVersionInfo.FileDescription.ToString();
                             procesosClass.Cpu = getPorcentajeCPU(listaProc[i].ProcessName.ToString());
-                            procesosClass.Memoria = memoriaProceso((long)listaProc[i].PeakWorkingSet64);
+                            procesosClass.Memoria = memoriaProceso((long)listaProc[i].WorkingSet64);
                             procesosClass.Usuario = getNombreUsuarioProceso(listaProc[i].Id.ToString());
-                            procesosClass.Prioridad = listaProc[i].PriorityClass.ToString();
+                            procesosClass.Prioridad = traducirPrioridadProceso(listaProc[i].PriorityClass.ToString());
 
                         }
                         catch (Win32Exception w)
@@ -92,17 +92,15 @@ namespace TaskManager
 
                         }
 
-
                     }
                     try
                     {
                         tablaDatos.Rows.Add(procesosClass.Id, procesosClass.Nombre, procesosClass.Desc, procesosClass.Cpu, procesosClass.Memoria, procesosClass.Usuario, procesosClass.Prioridad);
 
                     }
-                    catch (Exception)
+                    catch (Exception w)
                     {
-                        
-                        throw;
+                        MessageBox.Show(w.Message.ToString(), "Error al Cargar Tabla Interna", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -119,18 +117,17 @@ namespace TaskManager
                         dgvProcesos.FirstDisplayedScrollingRowIndex = scroll;
                     }
                 }
-                catch (Exception)
+                catch (Exception w)
                 {
-                    
-                    throw;
+                    MessageBox.Show(w.Message.ToString(), "Error Al Cargar Vista", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
 
             }
-            catch (Exception e)
+            catch (Exception w)
             {
-                //throw e;
-                // e.ToString();
+                if (MessageBox.Show(w.Message.ToString(), "Error General", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                    cargarProcesos();
             }
 
         }
@@ -158,7 +155,8 @@ namespace TaskManager
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                MessageBox.Show(ex.Message.ToString(), "Error Al Cargar El Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             return "Sin Usuario";
         }
@@ -167,24 +165,55 @@ namespace TaskManager
         {
             var contadorCPU = new PerformanceCounter("Process", "% Processor Time", nomProceso, true);
             contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(10);
             int aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(10);
             aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(10);
             aux = (int)contadorCPU.NextValue();
             return aux + "%";
 
-
         }
-        //Calcula elporcentaje de CPU usado en todos los procesos
+        //Funcion que calcula elporcentaje de CPU usado en todos los procesos
         public string getPorcentajeCPUTotal()
         {
             var contadorCPU = new PerformanceCounter("Processor", "% Processor Time", "_Total", true);
             contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(100);
             int aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
+            aux = (int)contadorCPU.NextValue();
+            System.Threading.Thread.Sleep(100);
             aux = (int)contadorCPU.NextValue();
             return aux + "%";
         }
@@ -200,7 +229,7 @@ namespace TaskManager
                 if (aux == 0)
                 {
                     double auxMemoria = (memoria / Math.Pow(1024, x - 1)); //Devuelve el valor en la medida entendible
-                    return Math.Round(auxMemoria, 2).ToString() + medida[x];
+                    return Math.Round(auxMemoria, 2).ToString() + medida[x - 1];
                 }
 
             }
@@ -212,24 +241,27 @@ namespace TaskManager
         public long memoriaTotal()
         {
             long memAux = 0;
+            int cantidadProcesos = 0;
             try
             {
 
                 listaProc = Process.GetProcesses();
                 foreach (Process p in listaProc)
                 {
-                    memAux += p.PeakWorkingSet64;
+                    memAux += p.WorkingSet64;
+                    if (p.WorkingSet64 > 0)
+                        cantidadProcesos += 1;
                 }
-                return memAux / listaProc.Length;
+                return memAux / cantidadProcesos;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.Write(e.ToString());
+                MessageBox.Show(ex.Message.ToString(), "Error Al CargarLa Memoria Total", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return 0;
         }
 
-        //Carga de nuevo latabla de procesos
+        //Carga de nuevo la tabla de procesos
         private void refrescarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cargarProcesos();
@@ -250,13 +282,15 @@ namespace TaskManager
         //Finaliza el proceso selecionado
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
-            listaProc = Process.GetProcesses();
-            foreach (Process p in listaProc)
+            try
             {
-                if (p.ProcessName.Equals(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString()))
-                {
-                    p.Kill();
-                }
+                Process.GetProcesses().FirstOrDefault(x => x.Id == int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString())).Kill();
+                if (MessageBox.Show("Desea actualizar la vista de procesos?", "Proceso Cerrado Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    cargarProcesos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Error Al Cerrar el Proceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -265,36 +299,33 @@ namespace TaskManager
         //Finaliza el arbol de procesos
         private void btnFinalizarArbol_Click(object sender, EventArgs e)
         {
-            this.cerrarArbolProcesos((int)dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value);
+            this.cerrarArbolProcesos(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString());
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Arbol de Procesos Cerrado Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
 
         //Cierra el arbol de procesos
-        private void cerrarArbolProcesos(int ID)
+        private void cerrarArbolProcesos(string nombreProceso)
         {
+            Process[] arbol = Process.GetProcessesByName(nombreProceso);
+
             try
             {
-                string query = "Select * From Win32_Process Where ParentProcessID = " + ID;
-                ManagementObjectSearcher buscar = new ManagementObjectSearcher(query);
-                ManagementObjectCollection procesos = buscar.Get();
-
-                foreach (ManagementObject obj in procesos)
+                foreach (Process pro in arbol)
                 {
-                    cerrarArbolProcesos(Convert.ToInt32(obj["ProcessID"]));
+                    try
+                    {
+                        pro.Kill();
+                    }
+                    catch (ArgumentException ae)
+                    {
+                        MessageBox.Show(ae.Message.ToString(), "Error Al Cerrar el Proceso Hijo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                try
-                {
-                    Process p = Process.GetProcessById(ID);
-                    p.Kill();
-                }
-                catch (ArgumentException)
-                {
-                    // fallo
-                }
-
             }
             catch (Exception ex)
             {
-                ex.ToString();
+                MessageBox.Show(ex.Message.ToString(), "Error Al Cerrar el Arbol de Procesos", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
 
@@ -310,7 +341,7 @@ namespace TaskManager
             {
                 if (!dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[2].Value.ToString().Equals(String.Empty))
                 {
-                    Process proc = Process.GetProcessById((int)dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value);
+                    Process proc = Process.GetProcessById(int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString()));
                     if (!proc.HasExited)
                     {
 
@@ -346,63 +377,110 @@ namespace TaskManager
                                 proc.PriorityClass = ProcessPriorityClass.RealTime;
                                 dgvProcesos.Refresh();
                                 break;
-                            
+
 
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show(null, "Proceso ya termino", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede cerrar un proceso que ya se encuentra cerrado", "Proceso ya termino", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show(null, "Acceso Negado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El acceso de este usuario no tiene los suficientes privilegios", "Acceso Negado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
 
 
             }
-            catch (Exception e) { }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message.ToString(), "Error Al Cambiar la prioridad del proceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        
+
+        //Evento al cambiar la prioridad de un proceso a por debajo de lo normal
         private void btnidle_Click(object sender, EventArgs e)
         {
             this.cambiarPrioridad(1);
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Prioridad del Procesos Actualizada Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
+        //Evento al cambiar la prioridad de un proceso a abaja
         private void btnBelow_Click(object sender, EventArgs e)
         {
             this.cambiarPrioridad(2);
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Prioridad del Procesos Actualizada Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
 
+        //Evento al cambiar la prioridad de un proceso a normal
         private void btnNormal_Click(object sender, EventArgs e)
         {
             this.cambiarPrioridad(3);
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Prioridad del Procesos Actualizada Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
 
+        //Evento al cambiar la prioridad de un proceso a por encima de lo normal
         private void btnAbove_Click(object sender, EventArgs e)
         {
             this.cambiarPrioridad(4);
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Prioridad del Procesos Actualizada Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
 
+        //Evento al cambiar la prioridad de un proceso a alta
         private void btnHigh_Click(object sender, EventArgs e)
         {
             this.cambiarPrioridad(5);
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Prioridad del Procesos Actualizada Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
 
+        //Evento al cambiar la prioridad de un proceso a tiempo real
         private void btnRealTime_Click(object sender, EventArgs e)
         {
             this.cambiarPrioridad(6);
+            if (MessageBox.Show("Desea actualizar la vista de procesos?", "Prioridad del Procesos Actualizada Exitosamente", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                cargarProcesos();
         }
 
+        //Evento del proceso del boton de afinidad. Este llama al form AfinidadForm para proveer las opciones de afinidad.
         private void btnAfinidad_Click(object sender, EventArgs e)
         {
             AfinidadForm afinidad = new AfinidadForm(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[1].Value.ToString(), int.Parse(dgvProcesos.Rows[dgvProcesos.CurrentCellAddress.Y].Cells[0].Value.ToString()));
-             afinidad.Show();
+            afinidad.Show();
         }
 
+        private string traducirPrioridadProceso(string prioridad)
+        {
+            switch (prioridad)
+            {
 
+                case "Idle":
+                    return "Baja";
+                    
+                case "BelowNormal":
+                    return "Debajo de lo Normal";
+                   
+                case "Normal":
+                    return "Normal";
+                   
+                case "AboveNormal":
+                    return "Por Encima de lo Normal";
+                   
+                case "High":
+                    return "Alta";
+                  
+                case "RealTime":
+                    return "Tiempo Real";
+                   
+            }
+            return string.Empty;
+        }
 
     }
 }

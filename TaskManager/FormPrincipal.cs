@@ -26,7 +26,7 @@ namespace TaskManager
         {
             formProcesos childForm = new formProcesos();
             childForm.MdiParent = this;
-            childForm.Text = "Ventana Procesos " + childFormNumber++;
+            childForm.Text = "Ventana Procesos - Ventana #" + childFormNumber++;
             childForm.Show();
         }
 
@@ -78,7 +78,7 @@ namespace TaskManager
         {
             formServicios childForm = new formServicios();
             childForm.MdiParent = this;
-            childForm.Text = "Ventana Servicios " + childFormNumber++;
+            childForm.Text = "Ventana Servicios - Ventana #" + childFormNumber++;
             childForm.Show();
         }
 
@@ -86,7 +86,7 @@ namespace TaskManager
         {
             formServicios childForm = new formServicios();
             childForm.MdiParent = this;
-            childForm.Text = "Ventana Servicios " + childFormNumber++;
+            childForm.Text = "Ventana Servicios - Ventana #" + childFormNumber++;
             childForm.Show();
         }
 
@@ -94,7 +94,7 @@ namespace TaskManager
         {
             formProcesos childForm = new formProcesos();
             childForm.MdiParent = this;
-            childForm.Text = "Ventana Procesos " + childFormNumber++;
+            childForm.Text = "Ventana Procesos - Ventana #" + childFormNumber++;
             childForm.Show();
         }
 
@@ -102,7 +102,7 @@ namespace TaskManager
         {
             formBuscar childForm = new formBuscar();
             childForm.MdiParent = this;
-            childForm.Text = "Correr Procesos " + childFormNumber++;
+            childForm.Text = "Correr Procesos - Ventana #" + childFormNumber++;
             childForm.Show();
         }
 
@@ -110,7 +110,7 @@ namespace TaskManager
         {
             formBuscar childForm = new formBuscar();
             childForm.MdiParent = this;
-            childForm.Text = "Correr Programa " + childFormNumber++;
+            childForm.Text = "Correr Programa - Ventana #" + childFormNumber++;
             childForm.Show();
         }
 

@@ -168,6 +168,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.lblAfinidad);
             this.Name = "AfinidadForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Afinidad del procesador";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

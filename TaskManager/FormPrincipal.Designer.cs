@@ -114,7 +114,7 @@
             this.btnBuscarProceso.ImageTransparentColor = System.Drawing.Color.Black;
             this.btnBuscarProceso.Name = "btnBuscarProceso";
             this.btnBuscarProceso.Size = new System.Drawing.Size(193, 22);
-            this.btnBuscarProceso.Text = "&Buscar Proceso";
+            this.btnBuscarProceso.Text = "&Ejecutar Proceso....";
             this.btnBuscarProceso.Click += new System.EventHandler(this.btnBuscarProceso_Click);
             // 
             // toolStripSeparator5
@@ -144,16 +144,16 @@
             // 
             this.btnAbrirFormServicios.Image = ((System.Drawing.Image)(resources.GetObject("btnAbrirFormServicios.Image")));
             this.btnAbrirFormServicios.Name = "btnAbrirFormServicios";
-            this.btnAbrirFormServicios.Size = new System.Drawing.Size(153, 22);
-            this.btnAbrirFormServicios.Text = "Abrir Servicios";
+            this.btnAbrirFormServicios.Size = new System.Drawing.Size(219, 22);
+            this.btnAbrirFormServicios.Text = "Abrir Servicios En Ejecucion";
             this.btnAbrirFormServicios.Click += new System.EventHandler(this.btnAbrirFormServicios_Click);
             // 
             // btnBuscarServicio
             // 
             this.btnBuscarServicio.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarServicio.Image")));
             this.btnBuscarServicio.Name = "btnBuscarServicio";
-            this.btnBuscarServicio.Size = new System.Drawing.Size(153, 22);
-            this.btnBuscarServicio.Text = "Buscar Servicio";
+            this.btnBuscarServicio.Size = new System.Drawing.Size(219, 22);
+            this.btnBuscarServicio.Text = "Ejecutar Servicio...";
             // 
             // btnSalirServicios
             // 
@@ -295,7 +295,7 @@
             this.btnNuevoFormsServicios.ImageTransparentColor = System.Drawing.Color.Black;
             this.btnNuevoFormsServicios.Name = "btnNuevoFormsServicios";
             this.btnNuevoFormsServicios.Size = new System.Drawing.Size(23, 22);
-            this.btnNuevoFormsServicios.Text = "Ver Servicios";
+            this.btnNuevoFormsServicios.Text = "Ver Servicios ";
             this.btnNuevoFormsServicios.Click += new System.EventHandler(this.btnNuevoFormsServicios_Click);
             // 
             // btnNuevoBuscarProc
@@ -305,7 +305,7 @@
             this.btnNuevoBuscarProc.ImageTransparentColor = System.Drawing.Color.Black;
             this.btnNuevoBuscarProc.Name = "btnNuevoBuscarProc";
             this.btnNuevoBuscarProc.Size = new System.Drawing.Size(23, 22);
-            this.btnNuevoBuscarProc.Text = "Abrir Procesos";
+            this.btnNuevoBuscarProc.Text = "Ejecutar Procesos";
             this.btnNuevoBuscarProc.Click += new System.EventHandler(this.btnNuevoBuscarProc_Click);
             // 
             // toolStripSeparator2
