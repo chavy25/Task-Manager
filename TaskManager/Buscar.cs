@@ -15,10 +15,9 @@ namespace TaskManager
     //Clase que inicia un form para ejecutar un procesos por el ID o el nombre
     public partial class formBuscar : Form
     {
-        //Declaracion del proceso y un arreglo de procesos
+        //Declaracion del proceso
         Process procesoAEjeutar = null;
-        Process[] procesosCorriendo;
-        
+                
         //constructor de la clase que inicializa un helper para el usuario
         public formBuscar()
         {

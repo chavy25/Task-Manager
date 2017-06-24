@@ -128,5 +128,22 @@ namespace TaskManager
             childForm.Show();
         }
 
+        //Evento para ver la pagina de informacion de a aplicacion
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutTaskManager childForm = new AboutTaskManager();
+            childForm.MdiParent = this;
+            childForm.Text = "Acerca de Taask Manager";
+            childForm.Show();
+        }
+
+        private void helpToolStripButton_Click(object sender, EventArgs e)
+        {
+            AboutTaskManager childForm = new AboutTaskManager();
+            childForm.MdiParent = this;
+            childForm.Text = "Acerca de Task Manager";
+            childForm.Show();
+        }
+
     }
 }

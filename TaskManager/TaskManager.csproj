@@ -129,6 +129,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutTaskManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutTaskManager.Designer.cs">
+      <DependentUpon>AboutTaskManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="AfinidadForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     <Compile Include="Servicios.Designer.cs">
       <DependentUpon>Servicios.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutTaskManager.resx">
+      <DependentUpon>AboutTaskManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AfinidadForm.resx">
       <DependentUpon>AfinidadForm.cs</DependentUpon>
     </EmbeddedResource>

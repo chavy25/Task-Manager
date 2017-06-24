@@ -134,9 +134,7 @@ namespace TaskManager
             }
             catch (Exception w)
             {
-                //Notifica al usuario de algun error al cargar los procesos y pregunta si quiere intentarlo de nuevo
-                if (MessageBox.Show(w.Message.ToString(), "Error General", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
-                    cargarProcesos();//Carga de nuevo los procesos en el gridview
+               cargarProcesos();//Carga de nuevo los procesos en el gridview en caso de que hallan errores al cargar la tabla
             }
 
         }
