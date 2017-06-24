@@ -44,7 +44,7 @@ namespace TaskManager
 
                 lblTotalProc.Text = listaProc.Length.ToString();
                 lblCPU.Text = getPorcentajeCPUTotal();
-                lblMemoria.Text = memoriaProceso(memoriaTotal());
+                lblMemoria.Text = Convert.ToString(Math.Round((memoriaTotal()/1000000),2)) +"%";//calcula la memoria total manejada en MB
 
 
                 var tablaDatos = new DataTable("Ejecutandose");//Nueva tabla con los siguientes encabezados
@@ -215,15 +215,7 @@ namespace TaskManager
             aux = (int)contadorCPU.NextValue();
             System.Threading.Thread.Sleep(100);
             aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
-            aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
-            aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
-            aux = (int)contadorCPU.NextValue();
-            System.Threading.Thread.Sleep(100);
-            aux = (int)contadorCPU.NextValue();
-            return aux + "%";
+             return aux + "%";
         }
 
         //Calcula la memoria actual de un proceso
@@ -246,7 +238,7 @@ namespace TaskManager
         }
 
         //Calcula la memoria total ocupada por todos los procesos
-        public long memoriaTotal()
+        public decimal memoriaTotal()
         {
             long memAux = 0;
             int cantidadProcesos = 0;
