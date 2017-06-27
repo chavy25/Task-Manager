@@ -64,14 +64,17 @@ namespace TaskManager
                 foreach (var ser in listaServ)
                 {
                     serviciosClass = new ServiciosClass();
+                    ServiciosClass servicio = obtenerServicio(ser.ServiceName.ToString());
 
-                    //serviciosClass.Id = obtenerServicio(ser.ServiceName.ToString()).Id;
+                    serviciosClass.Id = servicio.Id;
                     serviciosClass.Nombre = ser.ServiceName.ToString();
                     serviciosClass.Desc = ser.DisplayName.ToString();
-                    //serviciosClass.UsuarioServicio = obtenerServicio(ser.ServiceName.ToString()).UsuarioServicio;
+                    serviciosClass.UsuarioServicio = servicio.UsuarioServicio;
                     serviciosClass.Estado = ser.Status.ToString();
 
-                    
+                    if (servicio.Id.Equals("0"))
+                        serviciosClass.Id = string.Empty;
+
                     try
                     {
                         tablaDatosServ.Rows.Add(serviciosClass.Id, serviciosClass.Nombre, serviciosClass.Desc, serviciosClass.UsuarioServicio, serviciosClass.Estado);
@@ -121,15 +124,27 @@ namespace TaskManager
         //funcion interna que obtiene el process ID del servicio mediante el DLL
         private ServiciosClass obtenerServicio(string nombreServicio)
         {
-            ServiciosClass servicios = new ServiciosClass();
-            System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher("SELECT STARTNAME, PROCESSID FROM WIN32_SERVICE WHERE NAME = '" + nombreServicio + "'");
+            ServiciosClass servicio = new ServiciosClass();
 
-            foreach (System.Management.ManagementObject servicio in searcher.Get())
+            System.Management.SelectQuery consulta = new System.Management.SelectQuery(string.Format("select processid, startname from Win32_Service where name = '{0}'", nombreServicio));
+            System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(consulta);
+
+            foreach (System.Management.ManagementObject servicioController in searcher.Get())
             {
-                servicios.Id = servicio["PROCESSID"].ToString();
-                servicios.UsuarioServicio = servicio["STARTNAME"].ToString();
+                try
+                {
+                    servicio.Id = servicioController["PROCESSID"].ToString();
+                    servicio.UsuarioServicio = servicioController["STARTNAME"].ToString();
+                }
+                catch (Exception)
+                {
+                    servicio.Id = string.Empty;
+                    servicio.UsuarioServicio = "Acceso Denegado";
+                     
+                }
             }
-            return servicios;
+            return servicio;
+
         }
 
         //Evento al seleccionar con el click derecho alguna de las filas del gridview
