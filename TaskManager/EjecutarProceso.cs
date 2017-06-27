@@ -13,13 +13,13 @@ using System.Diagnostics;
 namespace TaskManager
 {
     //Clase que inicia un form para ejecutar un procesos por el ID o el nombre
-    public partial class formBuscar : Form
+    public partial class EjecutarProceso : Form
     {
         //Declaracion del proceso
         Process procesoAEjeutar = null;
                 
         //constructor de la clase que inicializa un helper para el usuario
-        public formBuscar()
+        public EjecutarProceso()
         {
             InitializeComponent();
             //helper agregado al form en caso de que el usuario no tenga idea de que hacer

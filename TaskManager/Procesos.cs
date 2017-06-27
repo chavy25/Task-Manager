@@ -275,7 +275,7 @@ namespace TaskManager
         {
             if (e.Button == MouseButtons.Right && e.RowIndex != -1 && e.ColumnIndex != -1)
             {
-                dgvProcesos.CurrentCell = dgvProcesos.Rows[e.RowIndex].Cells[e.ColumnIndex];//despues de que el usuario selecciono con el click derecho del mouse una columna, la guarda en el gridview
+                dgvProcesos.CurrentCell = dgvProcesos.Rows[e.RowIndex].Cells[e.ColumnIndex];//despues de que el usuario selecciono con el click derecho del mouse una columna, la guarda en el gridview la fila seleccionada
                 this.clickDerechoMenu.Show(Cursor.Position);
 
 

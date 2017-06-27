@@ -51,11 +51,5 @@ namespace TaskManager
             get { return id; }
             set { id = value; }
         }
-
-        public ProcesosClass() {}
-
-       
-
-
     }
 }

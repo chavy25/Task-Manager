@@ -1,6 +1,6 @@
 ﻿namespace TaskManager
 {
-    partial class formBuscar
+    partial class EjecutarProceso
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBuscar));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EjecutarProceso));
             this.btnCerrar = new System.Windows.Forms.Button();
             this.txtIDProceso = new System.Windows.Forms.TextBox();
             this.hlp = new System.Windows.Forms.HelpProvider();

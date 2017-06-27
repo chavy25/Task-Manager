@@ -13,12 +13,12 @@ using System.Diagnostics;
 namespace TaskManager
 {
     //Clase del form principal el cual es un MDIparent
-    public partial class FormPrincipal : Form
+    public partial class Principal : Form
     {
         private int childFormNumber = 1;//Inicializa la cantidad de ventanas abiertas
        
          
-        public FormPrincipal()
+        public Principal()
         {
             InitializeComponent();
         }
@@ -85,7 +85,7 @@ namespace TaskManager
         //Evento que crea una nueva instancia del form servicios como hija de este form y la abre
         private void btnAbrirFormServicios_Click(object sender, EventArgs e)
         {
-            formServicios childForm = new formServicios();
+            Servicios childForm = new Servicios();
             childForm.MdiParent = this;
             childForm.Text = "Ventana Servicios - Ventana #" + childFormNumber++;
             childForm.Show();
@@ -94,7 +94,7 @@ namespace TaskManager
         //Evento que crea una nueva instancia del form servicios como hija de este form y la abre, diferente punto de acceso
         private void btnNuevoFormsServicios_Click(object sender, EventArgs e)
         {
-            formServicios childForm = new formServicios();
+            Servicios childForm = new Servicios();
             childForm.MdiParent = this;
             childForm.Text = "Ventana Servicios - Ventana #" + childFormNumber++;
             childForm.Show();
@@ -112,7 +112,7 @@ namespace TaskManager
         //Evento que crea una nueva instancia del form buscar procesos como hija de este form y la abre, desde un diferente punto de acceso
         private void btnBuscarProceso_Click(object sender, EventArgs e)
         {
-            formBuscar childForm = new formBuscar();
+            EjecutarProceso childForm = new EjecutarProceso();
             childForm.MdiParent = this;
             childForm.Text = "Correr Procesos - Ventana #" + childFormNumber++;
             childForm.Show();
@@ -122,7 +122,7 @@ namespace TaskManager
 
         private void btnNuevoBuscarProc_Click(object sender, EventArgs e)
         {
-            formBuscar childForm = new formBuscar();
+            EjecutarProceso childForm = new EjecutarProceso();
             childForm.MdiParent = this;
             childForm.Text = "Correr Programa - Ventana #" + childFormNumber++;
             childForm.Show();
